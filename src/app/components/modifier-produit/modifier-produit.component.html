@@ -1,0 +1,48 @@
+<div class="container">
+    <mat-spinner *ngIf="loading" class="loader"></mat-spinner>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="produitAddOK">
+        Votre produit à bien été modifié !
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="produitForm">
+        <div class="form-group">
+            <label for="nomProduit">Nom :</label>
+            <input type="text" class="form-control" id="nomProduit" formControlName="nom" placeholder="Nom du produit...">
+        </div>
+        <div class="form-group">
+            <label for="nomProduit">Description :</label>
+            <textarea class="form-control" id="descriptionProduit" rows="3" formControlName="description" placeholder="Description du produit..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="nomProduit">Catégorie :</label>
+            <select class="custom-select" id="inputGroupSelect02" formControlName="categorie">
+                <option selected>Choisissez une catégorie...</option>
+                <option value="tv">TV</option>
+                <option value="refrigerateur">Réfrigérateur</option>
+                <option value="console">Console</option>
+                <option value="autre">Autre</option>
+              </select>
+        </div>
+        <div class="form-group">
+            <label for="nomProduit">Quantité :</label>
+            <input type="number" name="quantity" id="quantity" class="form-control" formControlName="quantity">
+        </div>
+        <div class="form-group">
+            <label for="nomProduit">Prix (€) :</label>
+            <input type="number" name="prix" id="prix" class="form-control" formControlName="prix">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success" type="button" (click)="filePicker.click()">Ajouter image</button>
+            <input type="file" #filePicker (change)="onImagePick($event)">
+            <div class="image-preview" *ngIf="imagePreview">
+                <img [src]="imagePreview" alt="">
+            </div>
+        </div>
+        <button class="btn btn-success" (click)="onSubmit()" [disabled]="produitForm.invalid">Modifier Produit</button>
+        <button [routerLink]="['/liste-Produits']" routerLinkActive="router-link-active" class="btn btn-danger">Annuler</button>
+        <p class="alert-danger" *ngIf="messageErreur">{{ messageErreur }}</p>
+    </form>
+
+</div>
